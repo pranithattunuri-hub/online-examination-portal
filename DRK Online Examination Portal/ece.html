@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECE Department – Online Examination System</title>
+    <!-- shared styles -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- pass the department name to JS -->
+    <script>
+        window.DEPARTMENT = 'ece';
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- ===== LOGO ===== -->
+        <a href="https://drkist.edu.in/" rel="home" target="_blank" class="logo">
+            <img src="https://drkist.edu.in/wp-content/uploads/2024/05/drkist-logo-540x83.png" alt="DRK Institute of Science and Technology" />
+        </a>
+
+        <!-- ===== LOGIN SELECTION ===== -->
+        <div id="loginSelection" class="section">
+            <h1>Online Examination System – <span style="color:#27ae60">CSE</span> Department</h1>
+            <div class="login-selection">
+                <button onclick="showTeacherLogin()">Teacher Login</button>
+                <button onclick="showStudentLogin()">Student Login</button>
+            </div>
+        </div>
+
+        <!-- ===== TEACHER LOGIN ===== -->
+        <div id="teacherLoginSection" class="section hidden">
+            <h1>Teacher Login – CSE</h1>
+            <div class="login-form">
+                <form id="teacherLoginForm">
+                    <div class="form-group">
+                        <label for="teacherUsername">Username:</label>
+                        <input type="text" id="teacherUsername" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacherPassword">Password:</label>
+                        <input type="password" id="teacherPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="teacherDept">Department:</label>
+                        <select id="teacherDept" required>
+                            <option value="" disabled selected>Select Department</option>
+                            <option value="default">DEFAULT</option>
+                            <option value="cse">CSE</option>
+                            <option value="ece">ECE</option>
+                            <option value="eee">EEE</option>
+                            <option value="civil">CIVIL</option>
+                            <option value="mech">MECH</option>
+                        </select>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== TEACHER DASHBOARD ===== -->
+        <div id="teacherDashboard" class="section hidden">
+            <h2>Teacher Dashboard – CSE</h2>
+            <div class="dashboard-container">
+                <!-- Exam Settings Panel -->
+                <div class="exam-settings">
+                    <h3>Exam Settings</h3>
+                    <form id="examSettingsForm">
+                        <div class="form-group">
+                            <label for="timeLimit">Time Limit (minutes):</label>
+                            <input type="number" id="timeLimit" min="1" value="30" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="passingScore">Passing Score (%):</label>
+                            <input type="number" id="passingScore" min="1" max="100" value="40" required>
+                        </div>
+                        <button type="submit">Save Settings</button>
+                    </form>
+                </div>
+
+                <!-- Question Manager Panel -->
+                <div class="question-manager">
+                    <h3>Question Manager</h3>
+                    <div class="question-controls">
+                        <button type="button" id="showQuestionPaper">Show Question Paper</button>
+                        <button type="button" id="addMoreQuestions">Add Multiple Questions</button>
+                    </div>
+                    <div id="questionPaperView" class="hidden">
+                        <h4>Current Question Paper</h4>
+                        <div id="questionsList"></div>
+                    </div>
+                    <form id="questionForm">
+                        <div id="questionsContainer">
+                            <!-- template created by JS -->
+                        </div>
+                        <div class="form-controls">
+                            <button type="button" id="addQuestion">Add Another Question</button>
+                            <button type="submit">Save All Questions</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="results-section">
+                    <h3>Exam Results</h3>
+                    <div class="results-container">
+                        <div class="top-scorer">
+                            <h4>Top Scorer</h4>
+                            <div id="topScorer"></div>
+                        </div>
+                        <div class="results-lists">
+                            <div class="passed-students">
+                                <h4>Passed Students</h4>
+                                <div id="passedList"></div>
+                            </div>
+                            <div class="failed-students">
+                                <h4>Failed Students</h4>
+                                <div id="failedList"></div>
+                            </div>
+                        </div>
+                        <div class="statistics">
+                            <p>Total Students: <span id="totalStudents">0</span></p>
+                            <p>Pass Percentage: <span id="passPercentage">0%</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- //dashboard-container -->
+        </div><!-- //teacherDashboard -->
+
+        <!-- ===== STUDENT LOGIN ===== -->
+        <div id="studentLoginSection" class="section hidden">
+            <h1>Student Login – CSE</h1>
+            <div class="login-form">
+                <form id="studentLoginForm">
+                    <div class="form-group">
+                        <label for="studentName">Full Name:</label>
+                        <input type="text" id="studentName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="rollNumber">Roll Number:</label>
+                        <input type="text" id="rollNumber" required>
+                    </div>
+                    <button type="submit">Start Exam</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== EXAM SECTION ===== -->
+        <div id="examSection" class="section hidden">
+            <div class="exam-header">
+                <h2>Multiple Choice Examination – CSE</h2>
+                <div class="student-info">
+                    <span id="studentNameDisplay"></span>
+                    <span id="rollNumberDisplay"></span>
+                </div>
+                <div class="timer">Time Remaining: <span id="timeRemaining">30:00</span></div>
+            </div>
+            <div class="exam-content">
+                <form id="examForm"><!-- questions injected by JS --></form>
+                <div class="exam-controls">
+                    <button id="submitExam">Submit Exam</button>
+                    <button id="clearAnswers">Clear All</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- //container -->
+
+    <!-- shared behaviour -->
+    <script src="script.js"></script>
+</body>
+</html>

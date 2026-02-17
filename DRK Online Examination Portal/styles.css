@@ -1,0 +1,435 @@
+/************
+ * GLOBAL RESET & BASE
+ ************/
+ * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #2c3e50;
+}
+
+/************
+ * LAYOUT CONTAINERS
+ ************/
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    margin: 2rem auto;
+}
+
+.section {
+    width: 100%;
+}
+
+.hidden {
+    display: none;
+}
+
+/************
+ * TYPOGRAPHY
+ ************/
+h1, h2, h3, h4 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+/************
+ * LOGO
+ ************/
+.logo {
+    display: block;
+    margin: 0 auto 1.5rem;
+    max-width: 300px;
+}
+
+/************
+ * LOGIN SELECTION
+ ************/
+.login-selection {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.login-selection button {
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    min-width: 200px;
+}
+
+/************
+ * FORMS (inputs, selects, textarea)
+ ************/
+.login-form {
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input, textarea, select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background: #ffffff;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+/************
+ * DASHBOARD & PANELS
+ ************/
+.dashboard-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.exam-settings, .question-manager, .results-section {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.option-input {
+    margin-bottom: 0.5rem;
+}
+
+/************
+ * RESULTS SECTION
+ ************/
+.results-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.top-scorer {
+    text-align: center;
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.results-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.passed-students, .failed-students {
+    padding: 1rem;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    min-height: 200px;
+}
+
+.statistics {
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+/************
+ * EXAM (student view)
+ ************/
+.exam-header {
+    background: #f8f9fa;
+    padding: 1rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.student-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.timer {
+    text-align: right;
+    color: #e74c3c;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.exam-content {
+    margin-top: 2rem;
+}
+
+.question {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 1.5rem;
+}
+
+.options {
+    margin-top: 1rem;
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    margin: 0.8rem 0;
+    padding: 0.8rem;
+    background: #ffffff;
+    border: 2px solid #e0e0e0;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.option:hover {
+    background: #f0f0f0;
+}
+
+.option input[type="radio"] {
+    margin-right: 1rem;
+    width: auto;
+}
+
+.exam-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+    gap: 1rem;
+}
+
+/************
+ * BUTTONS
+ ************/
+button {
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.15s ease;
+    background: #3498db;
+    color: #ffffff;
+}
+
+button:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+button[type="submit"] {
+    width: 100%;
+    margin-top: 1rem;
+}
+
+#clearAnswers {
+    background: #e74c3c;
+}
+
+#clearAnswers:hover {
+    background: #c0392b;
+}
+
+/************
+ * STUDENT RESULT CARD
+ ************/
+.student-result {
+    padding: 0.8rem;
+    margin-bottom: 0.5rem;
+    background: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.top-scorer .student-result {
+    background: #f1c40f;
+}
+
+/************
+ * RESPONSIVE
+ ************/
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 1rem;
+    }
+
+    .login-selection {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .results-lists {
+        grid-template-columns: 1fr;
+    }
+
+    .exam-controls {
+        flex-direction: column;
+    }
+
+    .student-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .timer {
+        text-align: center;
+    }
+}
+
+/************
+ * QUESTION MANAGER (Faculty)
+ ************/
+.question-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.question-controls button {
+    flex: 1;
+}
+
+#questionPaperView {
+    margin: 2rem 0;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.question-entry {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.delete-question {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.5rem 1rem;
+    background: #e74c3c;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete-question:hover {
+    background: #c0392b;
+}
+
+.form-controls {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.form-controls button {
+    flex: 1;
+}
+
+#addQuestion {
+    background: #2ecc71;
+}
+
+#addQuestion:hover {
+    background: #27ae60;
+}
+
+.question-paper-item {
+    background: #ffffff;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.question-paper-item .options {
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+.question-paper-item .correct {
+    color: #27ae60;
+    font-weight: bold;
+}
+
+.edit-question-btn {
+    margin-top: 1rem;
+    background: #f39c12;
+}
+
+.edit-question-btn:hover {
+    background: #d68910;
+}
+
+/************
+ * QUESTION BANK (department pages)
+ ************/
+ol.question-bank {
+    list-style-position: inside;
+    margin-top: 1rem;
+    line-height: 1.6;
+}
+
+.question-bank li {
+    margin-bottom: 1.5rem;
+}
+
+.question-bank ul {
+    margin-top: 0.5rem;
+    margin-left: 1.5rem;
+}
+
+.question-bank li strong {
+    color: #27ae60;
+}
