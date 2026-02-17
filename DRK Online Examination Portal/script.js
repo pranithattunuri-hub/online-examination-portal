@@ -107,15 +107,15 @@ const TEACHER_USERNAME = 'DRK College';
 const TEACHER_PASSWORD = 'drkn7';
 
 // Login Navigation
-window.showTeacherLogin = () => { hide($('loginSelection')); show($('teacherLoginSection')); };
+window.showFacultyLogin = () => { hide($('loginSelection')); show($('facultyLoginSection')); };
 window.showStudentLogin = () => { hide($('loginSelection')); show($('studentLoginSection')); };
 
-// Teacher Login
-$('teacherLoginForm')?.addEventListener('submit', e => {
+// Faculty Login
+$('facultyLoginForm')?.addEventListener('submit', e => {
   e.preventDefault();
-  const user = $('teacherUsername').value.trim();
-  const pass = $('teacherPassword').value.trim();
-  const dept = $('teacherDept')?.value || CURRENT_DEPT;
+  const user = $('facultyUsername').value.trim();
+  const pass = $('facultyPassword').value.trim();
+  const dept = $('facultyDept')?.value || CURRENT_DEPT;
 
   if (!dept) return alert('Select department');
   if (user !== TEACHER_USERNAME || pass !== TEACHER_PASSWORD) return alert('Invalid credentials');
@@ -124,7 +124,7 @@ $('teacherLoginForm')?.addEventListener('submit', e => {
   sessionStorage.setItem('dept', dept);
 
   if (dept === CURRENT_DEPT || dept === 'default') {
-    hide($('teacherLoginSection')); show($('teacherDashboard'));
+    hide($('facultyLoginSection')); show($('facultyDashboard'));
     updateResults();
   } else {
     window.location.href = `${dept}.html`;
@@ -135,8 +135,8 @@ $('teacherLoginForm')?.addEventListener('submit', e => {
 (function autoDashboard() {
   if (sessionStorage.getItem('loggedIn') === 'true' && sessionStorage.getItem('dept') === CURRENT_DEPT) {
     hide($('loginSelection'));
-    hide($('teacherLoginSection'));
-    show($('teacherDashboard'));
+    hide($('facultyLoginSection'));
+    show($('facultyDashboard'));
     updateResults();
   }
 })();

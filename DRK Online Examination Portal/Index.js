@@ -1,11 +1,11 @@
 // DOM Elements
 const loginSelection = document.getElementById('loginSelection');
-const teacherLoginSection = document.getElementById('teacherLoginSection');
-const teacherDashboard = document.getElementById('teacherDashboard');
+const facultyLoginSection = document.getElementById('facultyLoginSection');
+const facultyDashboard = document.getElementById('facultyDashboard');
 const studentLoginSection = document.getElementById('studentLoginSection');
 const examSection = document.getElementById('examSection');
 const studentLoginForm = document.getElementById('studentLoginForm');
-const teacherLoginForm = document.getElementById('teacherLoginForm');
+const facultyLoginForm = document.getElementById('facultyLoginForm');
 const examForm = document.getElementById('examForm');
 const studentNameDisplay = document.getElementById('studentNameDisplay');
 const rollNumberDisplay = document.getElementById('rollNumberDisplay');
@@ -86,17 +86,17 @@ let questions = [
 let examResults = [];
 
 // Teacher Credentials
-const TEACHER_USERNAME = 'archana';
-const TEACHER_PASSWORD = 'teacher';
+const TEACHER_USERNAME = 'DRK College';
+const TEACHER_PASSWORD = 'drkn7';
 
 // Variables
 let examTime;
 let timerInterval;
 
 // Show/Hide Functions
-function showTeacherLogin() {
+function showFacultyLogin() {
     loginSelection.classList.add('hidden');
-    teacherLoginSection.classList.remove('hidden');
+    facultyLoginSection.classList.remove('hidden');
 }
 
 function showStudentLogin() {
@@ -104,66 +104,74 @@ function showStudentLogin() {
     studentLoginSection.classList.remove('hidden');
 }
 
-// Teacher Login Handler
-teacherLoginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const username = document.getElementById('teacherUsername').value;
-    const password = document.getElementById('teacherPassword').value;
+// Faculty Login Handler
+if (facultyLoginForm) {
+    facultyLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.getElementById('facultyUsername').value;
+        const password = document.getElementById('facultyPassword').value;
 
-    if (username === TEACHER_USERNAME && password === TEACHER_PASSWORD) {
-        teacherLoginSection.classList.add('hidden');
-        teacherDashboard.classList.remove('hidden');
-        updateResultsDisplay();
-    } else {
-        alert('Invalid credentials!');
-    }
-});
+        if (username === TEACHER_USERNAME && password === TEACHER_PASSWORD) {
+            facultyLoginSection.classList.add('hidden');
+            facultyDashboard.classList.remove('hidden');
+            updateResultsDisplay();
+        } else {
+            alert('Invalid credentials!');
+        }
+    });
+}
 
 // Exam Settings Handler
-examSettingsForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    examSettings.timeLimit = parseInt(document.getElementById('timeLimit').value);
-    examSettings.passingScore = parseInt(document.getElementById('passingScore').value);
-    alert('Exam settings updated successfully!');
-});
+if (examSettingsForm) {
+    examSettingsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        examSettings.timeLimit = parseInt(document.getElementById('timeLimit').value);
+        examSettings.passingScore = parseInt(document.getElementById('passingScore').value);
+        alert('Exam settings updated successfully!');
+    });
+}
 
 // Question Manager Handler
-questionForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const questionEntries = document.querySelectorAll('.question-entry');
-    const newQuestions = Array.from(questionEntries).map(entry => {
-        return {
-            question: entry.querySelector('.question-text').value,
-            options: Array.from(entry.querySelectorAll('.option-input')).map(input => input.value),
-            correct: parseInt(entry.querySelector('.correct-option').value) - 1
-        };
+if (questionForm) {
+    questionForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const questionEntries = document.querySelectorAll('.question-entry');
+        const newQuestions = Array.from(questionEntries).map(entry => {
+            return {
+                question: entry.querySelector('.question-text').value,
+                options: Array.from(entry.querySelectorAll('.option-input')).map(input => input.value),
+                correct: parseInt(entry.querySelector('.correct-option').value) - 1
+            };
+        });
+
+        // Add new questions to the existing array
+        questions.push(...newQuestions);
+
+        questionForm.reset();
+        questionsContainer.innerHTML = '';
+        questionsContainer.appendChild(createQuestionTemplate());
+        alert('Questions saved successfully!');
     });
-
-    // Add new questions to the existing array
-    questions.push(...newQuestions);
-
-    questionForm.reset();
-    questionsContainer.innerHTML = '';
-    questionsContainer.appendChild(createQuestionTemplate());
-    alert('Questions saved successfully!');
-});
+}
 
 // Student Login Handler
-studentLoginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const studentName = document.getElementById('studentName').value;
-    const rollNumber = document.getElementById('rollNumber').value;
+if (studentLoginForm) {
+    studentLoginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const studentName = document.getElementById('studentName').value;
+        const rollNumber = document.getElementById('rollNumber').value;
 
-    studentNameDisplay.textContent = `Student: ${studentName}`;
-    rollNumberDisplay.textContent = `Roll Number: ${rollNumber}`;
+        studentNameDisplay.textContent = `Student: ${studentName}`;
+        rollNumberDisplay.textContent = `Roll Number: ${rollNumber}`;
 
-    studentLoginSection.classList.add('hidden');
-    examSection.classList.remove('hidden');
+        studentLoginSection.classList.add('hidden');
+        examSection.classList.remove('hidden');
 
-    examTime = examSettings.timeLimit * 60;
-    startTimer();
-    loadQuestions();
-});
+        examTime = examSettings.timeLimit * 60;
+        startTimer();
+        loadQuestions();
+    });
+}
 
 // Load Questions
 function loadQuestions() {
@@ -204,7 +212,9 @@ function startTimer() {
 }
 
 // Submit Exam
-submitExamBtn.addEventListener('click', submitExam);
+if (submitExamBtn) {
+    submitExamBtn.addEventListener('click', submitExam);
+}
 
 function submitExam() {
     clearInterval(timerInterval);
@@ -277,10 +287,12 @@ function createStudentResultHTML(result) {
 }
 
 // Clear Answers
-clearAnswersBtn.addEventListener('click', () => {
-    const radioButtons = document.querySelectorAll('input[type="radio"]');
-    radioButtons.forEach(radio => radio.checked = false);
-});
+if (clearAnswersBtn) {
+    clearAnswersBtn.addEventListener('click', () => {
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(radio => radio.checked = false);
+    });
+}
 
 // Reset Exam
 function resetExam() {
@@ -293,30 +305,32 @@ function resetExam() {
 }
 
 // Show/Hide Question Paper
-showQuestionPaperBtn.addEventListener('click', () => {
-    const isHidden = questionPaperView.classList.contains('hidden');
-    questionPaperView.classList.toggle('hidden');
-    showQuestionPaperBtn.textContent = isHidden ? 'Hide Question Paper' : 'Show Question Paper';
-    if (!isHidden) return;
+if (showQuestionPaperBtn) {
+    showQuestionPaperBtn.addEventListener('click', () => {
+        const isHidden = questionPaperView.classList.contains('hidden');
+        questionPaperView.classList.toggle('hidden');
+        showQuestionPaperBtn.textContent = isHidden ? 'Hide Question Paper' : 'Show Question Paper';
+        if (!isHidden) return;
 
-    // Update question paper view
-    questionsList.innerHTML = questions.map((q, index) => `
-        <div class="question-paper-item" data-index="${index}">
-            <h4>Question ${index + 1}</h4>
-            <p>${q.question}</p>
-            <div class="options">
-                ${q.options.map((opt, i) => `
-                    <div class="${i === q.correct ? 'correct' : ''}">
-                        ${i + 1}. ${opt}
-                    </div>
-                `).join('')}
+        // Update question paper view
+        questionsList.innerHTML = questions.map((q, index) => `
+            <div class="question-paper-item" data-index="${index}">
+                <h4>Question ${index + 1}</h4>
+                <p>${q.question}</p>
+                <div class="options">
+                    ${q.options.map((opt, i) => `
+                        <div class="${i === q.correct ? 'correct' : ''}">
+                            ${i + 1}. ${opt}
+                        </div>
+                    `).join('')}
+                </div>
+                <button type="button" class="edit-question-btn" onclick="editQuestion(${index})">
+                    Edit Question
+                </button>
             </div>
-            <button type="button" class="edit-question-btn" onclick="editQuestion(${index})">
-                Edit Question
-            </button>
-        </div>
-    `).join('');
-});
+        `).join('');
+    });
+}
 
 // Add Question Template
 function createQuestionTemplate() {
@@ -344,21 +358,25 @@ function createQuestionTemplate() {
 }
 
 // Add New Question Field
-addQuestionBtn.addEventListener('click', () => {
-    questionsContainer.appendChild(createQuestionTemplate());
-});
+if (addQuestionBtn) {
+    addQuestionBtn.addEventListener('click', () => {
+        questionsContainer.appendChild(createQuestionTemplate());
+    });
+}
 
 // Delete Question
-questionsContainer.addEventListener('click', (e) => {
-    if (e.target.classList.contains('delete-question')) {
-        const questionEntry = e.target.closest('.question-entry');
-        if (questionsContainer.children.length > 1) {
-            questionEntry.remove();
-        } else {
-            alert('You must have at least one question!');
+if (questionsContainer) {
+    questionsContainer.addEventListener('click', (e) => {
+        if (e.target.classList.contains('delete-question')) {
+            const questionEntry = e.target.closest('.question-entry');
+            if (questionsContainer.children.length > 1) {
+                questionEntry.remove();
+            } else {
+                alert('You must have at least one question!');
+            }
         }
-    }
-});
+    });
+}
 
 // Edit Question
 function editQuestion(index) {
